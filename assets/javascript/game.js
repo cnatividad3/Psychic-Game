@@ -11,16 +11,18 @@ var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
 
 //user guesses array
 var userGuesses = [];
-userGuesses.push(userPick);
+
 
 //user engagement (click)
 document.onkeyup = function (event) {
   var userPick = event.key;
+  userGuesses.push(userPick);
 
 
   //generate random pick
   var computerPick = alphabet[Math.floor(Math.random() * alphabet.length)];
   console.log("Computer Guesses: " + computerPick);
+  
 
   //condition
   if (userPick === computerPick) {
