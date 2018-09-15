@@ -1,45 +1,54 @@
-
+//variables
 var wins = 0;
 var losses = 0;
-var guesses = 9;
+var guesses = 10;
 
+
+//computer guesses
 var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
-  "m", "n", "o", "p", "q", "r", "s","t", "u", "v", "w", "x", "y", "z"];
+  "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+];
 
-document.onkeyup = function(event) {
-  console.log(event);
+//user guesses array
+var userGuesses = [];
+userGuesses.push(userPick);
 
+//user engagement (click)
+document.onkeyup = function (event) {
   var userPick = event.key;
 
-  var gameHTML = document.getElementById("game");
 
+  //generate random pick
   var computerPick = alphabet[Math.floor(Math.random() * alphabet.length)];
-  console.log(computerPick);
+  console.log("Computer Guesses: " + computerPick);
 
-    if (userPick === computerPick) {
-      wins++;
-      alert("correct!");
-    }
-    
-    else {
-      guesses--;
-      alert("wrong!");
-    }
-    
-    if (guesses === 0) {
-      losses++
-    }
-
-    document.getElementById('wins').innerHTML = "Wins: " + wins;
-    document.getElementById('losses').innerHTML = "losses: " + losses;
-    document.getElementById('guesses').innerHTML = "Guesses left: " + guesses;
-
+  //condition
+  if (userPick === computerPick) {
+    wins++;
+    alert("you chose correct!");
+    userGuesses = [];
+    guesses = 10;
+  } else {
+    guesses--;
   }
-  gameHTML.innerHTML = 
-  "<h2>Wins: " 
-  + wins + 
-  "</h2><h2>Losses: " 
-  + losses + 
-  "</h2><h2>Ties: " 
-  + ties + 
-  "</h2>";
+
+  if (guesses === 0) {
+    losses++;
+    guesses = 10;
+    userGuesses = [];
+  }
+
+  //logging results
+  console.log("wins: " + wins);
+  console.log("losses: " + losses);
+  console.log("guesses: " + guesses);
+  
+  //show to html
+  var gameWins = "<p>Wins: " + wins + "</p>";
+  var gameLosses = "<p>Losses: " + losses + "</p>";
+  var gameGuesses = "<p>Guesses left: " + guesses + "</p>";
+  var myGuesses = "<p>Guesses: " + userGuesses + "</p>";
+  var gameDiv = document.getElementById('game');
+  gameDiv.innerHTML = gameWins + gameLosses + myGuesses + gameGuesses;
+
+}
